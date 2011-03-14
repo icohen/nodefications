@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>User Login</title>
+<link type="text/css" rel="stylesheet" href="http://peterjanovsky.me/monitoring/css/default.css">
+<link type="text/css" rel="stylesheet" href="http://peterjanovsky.me/monitoring/css/login.css">
+</head>
+
+<body>
+  <div id="content">
+    <div id="title">User Login</div>
+    <div id="login">
+      <form method="post" action="/users/login_validation">
+        <div class="title">User Name</div>
+        <div class="input"><input type="text" name="username" /></div>
+        <div class="title">Password</div>
+        <div class="input"><input type="password" name="password" /></div>
+        <div class="button"><input type="submit" value="Login" /></div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

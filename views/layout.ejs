@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Alert Notifications</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.5.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://peterjanovsky.me/monitoring/css/default.css">
+    <link type="text/css" rel="stylesheet" href="http://peterjanovsky.me/monitoring/css/alerts.css">
+  </head>
+  <body>
+    <script>
+      var socket = new io.Socket(null, {port: 8124, rememberTransport: false});
+      socket.connect();
+      socket.on('message', function(obj){
+        if ('message' in obj) {
+          // remove existing notification
+
+          //alert(obj.message);
+          //alert(obj.message[0]);
+          //alert(obj.message[1]);
+
+          var id = obj.message[1].replace("ack:", '');
+          //$( "#notification_" + id ).remove();
+          $( 'div[name="notification_' + id + '"]' ).remove();
+        } else {
+          // add new notification
+          var elmntId = 'notification_' + obj._id;
+          var html = '<div name="' + elmntId + '" id="alert"><div id="createdOn" class="date">' + new Date(obj.created_on).toDateString() + ' ' + new Date(obj.created_on).toLocaleTimeString() + '</div><div id="longDscrptn" class="message"><div id="shortDscrptn" class="title">' + obj.short_dscrptn + '</div>' + obj.long_dscrptn + '</div><div id="remove"><span onclick="removeNotification(\'' + obj._id + '\')" class="status">Confirm</span></div></div>';
+          //$(html).prependTo('#notifications');
+          //$( "#" + elmntId ).animate({ width: "90%" }, 1000 ).animate({ fontSize: "24px" }, 1000 ).animate({ borderLeftWidth: "15px" }, 1000 );
+          $(html).prependTo('#alerts');
+          $( 'div[name="' + elmntId + '"]' ).animate({ width: "90%" }, 1000 ).animate({ fontSize: "24px" }, 1000 ).animate({ borderLeftWidth: "15px" }, 1000 );
+        }
+      });
+
+      function removeNotification(obj){
+        // to remove from all open clients
+        socket.send('ack:' + obj);
+
+        // to update within collection
+        var username = document.getElementById('user').innerHTML;
+        var ack = 'ack_remove:' + obj + ':' + username;
+        socket.send(ack);
+
+        // to remove from this client
+        //$("#notification_" + obj).remove();
+        $( 'div[name="notification_' + obj + '"]' ).remove();
+      }
+    </script>
+    <div id="content">
+      <div id="title">Alert Notifications</div>
+      <div id="user"><%= username %>&nbsp;<span class="logout"><a id="logout" href="/users/logout">logout</a></span></div>
+      <div id="header">
+        <div class="date">Date</div>
+        <div class="message">Message</div>
+        <div class="status">Status</div>
+      </div>
+      <div name="notifications" id="alerts">
+        <% for(var i in notifications){ %>
+          <div name="notification_<%=  notifications[i]._id %>" id="alert">
+            <div id="createdOn" class="date"><%=  new Date(notifications[i].created_on).toDateString() %> <%=  new Date(notifications[i].created_on).toLocaleTimeString() %></div>
+            <div id="longDscrptn" class="message">
+              <div id="shortDscrptn" class="title"><%= notifications[i].short_dscrptn %></div><%= notifications[i].long_dscrptn %>
+            </div>
+            <div id="remove"><span onclick="removeNotification('<%=  notifications[i]._id %>')" class="status">Confirm</span></div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
