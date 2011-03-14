@@ -1,0 +1,7 @@
+notification app
+
+uses
+- node
+- express
+- ejs
+- socket.io
