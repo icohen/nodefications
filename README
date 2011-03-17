@@ -5,3 +5,4 @@ uses
 - express
 - ejs
 - socket.io
+- mongoose
