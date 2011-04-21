@@ -1,6 +1,7 @@
 notification app
 
-uses
+use
+- mongodbs
 - node
 - express
 - ejs
