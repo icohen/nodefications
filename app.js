@@ -19,10 +19,6 @@ var connect = require('connect');
 var events = require('events');
 
 
-// file system
-var fs = require('fs');
-
-
 // mongoose
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/monitoring');
@@ -38,8 +34,8 @@ app.configure(function() {
   app.use(express.methodOverride());
   app.use(express.cookieDecoder());
   app.use(express.session({key: 'user', secret: 'userK3y'}));
-  app.use(app.router);
   app.use(express.staticProvider(__dirname + '/public'));
+  app.use(app.router);
 });
 
 

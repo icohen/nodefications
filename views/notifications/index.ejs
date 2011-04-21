@@ -1,0 +1,16 @@
+<div id="header">
+  <div class="date">Date</div>
+  <div class="message">Message</div>
+  <div class="status">Status</div>
+</div>
+<div name="notifications" id="alerts">
+  <% for(var i in notifications){ %>
+    <div name="notification_<%=  notifications[i]._id %>" id="alert">
+      <div id="createdOn" class="date"><%=  new Date(notifications[i].created_on).toDateString() %> <%=  new Date(notifications[i].created_on).toLocaleTimeString() %></div>
+      <div id="longDscrptn" class="message">
+        <div id="shortDscrptn" class="title"><%= notifications[i].short_dscrptn %></div><%= notifications[i].long_dscrptn %>
+      </div>
+      <div id="remove"><span onclick="removeNotification('<%=  notifications[i]._id %>')" class="status">Confirm</span></div>
+    </div>
+  <% } %>
+</div>
