@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+
+#content {
+	height: 300px;
+	padding-top: 180px;
+}
+#login {
+	position: relative;
+	width: 250px;
+	margin: 0px auto;
+}
+#login .title {
+	font: bold 11px Verdana, sans-serif;
+	color: #666666;
+	text-transform: uppercase;
+}
+#login .input {
+	width: 250px;
+	height: 40px;
+}
+#login .input input {
+	width: 248px;
+	height: 20px;
+	border: #999999 1px inset;
+	font: normal 11px Verdana, sans-serif;
+	color: #333333;
+}
+#login .button {
+	width: 250px;
+	height: 20px;
+	text-align: right;
+}
+#login .button a {
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: bold;
+	color: #cccccc;
+	background: #666666;
+	border: #666666 1px outset;
+	padding: 1px 5px;
+}
+#login .button a:hover {
+	color: #ffffff;
+	background: #333333;
+	border: #333333 1px inset;
+}

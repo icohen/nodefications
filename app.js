@@ -3,16 +3,8 @@ var express = require('express'),
   app = express.createServer();
 
 
-// session
-//var session = require('sesh').session;
-
-
 // socket
 var io = require('socket.io');
-
-
-// jade
-//var jade = require('jade');
 
 
 // ejs
@@ -39,8 +31,6 @@ mongoose.connect('mongodb://localhost/monitoring');
 // configuration
 app.configure(function() {
   app.set('views', __dirname + '/views');
-//  app.set('view engine', 'jade');
-//  app.register('.jade', require('jade'));
   app.set('view engine', 'ejs');
   app.set('.html', require('ejs'));
   app.set('view options', {layout: true});
@@ -72,15 +62,12 @@ require('./models/notification');
 var notificationModel = mongoose.model('Notification');
 
 
-// view all
+// view all notifications
 app.get('/notifications', function(req, res) {
   if(req.session.user == null) {
     res.redirect('users/login');
   }
 
-//  notificationModel.find({}, function(err, notifications) {
-//  notificationModel.find({short_dscrptn : {$sort : -1}}, function(err, notifications) {
-  //notificationModel.find({}, ['created_on']).sort(['date'], -1).execFind(function(err, notifications) {
   notificationModel.find({confirmed_on: null}).sort(['created_on'], -1).execFind(function(err, notifications) {
     if(err) {
       console.log(err);
@@ -93,19 +80,11 @@ app.get('/notifications', function(req, res) {
         username: req.session.user
       }
     });
-/*
-    for(var i in notifications) {
-      console.log(notifications[i]._id);
-      console.log(notifications[i].short_dscrptn);
-      console.log(notifications[i].long_dscrptn);
-      console.log(notifications[i].created_on);
-    }
-*/
   });
 });
 
 
-// create
+// create new notification
 app.get('/notification/new', function(req, res){
   var instance = new notificationModel();
   instance.short_dscrptn = req.param('subject');
@@ -136,7 +115,7 @@ app.get('/notification/new', function(req, res){
 });
 
 
-// update
+// update notification
 app.get('/notification/:id/edit', function(req, res){
   if(req.session.user == null) {
     res.redirect('users/login');
@@ -155,7 +134,7 @@ app.get('/notification/:id/edit', function(req, res){
 });
 
 
-// delete
+// delete notificaiton
 app.del('/notification/:id/remove', function(req, res){
   if(req.session.user == null) {
     res.redirect('users/login');
@@ -165,7 +144,7 @@ app.del('/notification/:id/remove', function(req, res){
 });
 
 
-// view by id
+// view notification by id
 app.get('/notification/:id', function(req, res){
   if(req.session.user == null) {
     res.redirect('users/login');
@@ -195,20 +174,13 @@ app.get('/users/login', function(req, res) {
 });
 
 
-// post
+// login validation
 app.post('/users/login_validation', function(req, res) {
   var instance = new userModel();
   instance.email = req.body.username;
   instance.password = req.body.password;
   console.log(instance.email);
   console.log(instance.password);
-
-/*
-  var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("GET", 'ldap://ldap://dca.dc.cbici.net/dc=dc,dc=cbici,dc=net?' + instance.email, false);
-  xmlHttp.send(null);
-  res.send(xmlHttp.responseText);
-*/
 
   userModel.find({email: instance.email, password: instance.password}, function(err, users) {
     if(users.length == 1) {
@@ -224,24 +196,7 @@ app.post('/users/login_validation', function(req, res) {
 // logout
 app.get('/users/logout', function(req, res){
   req.session.user = null;
-//  res.writeHead(200, {'Content-Type': 'text/plain'});
-//  res.write('You\'ve been logged out');
-//  res.end();
   res.redirect('/users/login');
-});
-
-
-app.get('/user', function(req, res){
-//  session(req, res, function(req, res){
-//    res.writeHead(200, {'Content-Type': 'text/plain'});
-//    res.write('current session: \n' + JSON.stringify(req.session, 2, true));
-//    res.end();
-//  });
-
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.write('current session: \n' + JSON.stringify(req.session, 2, true));
-  res.write('current session: \n' + JSON.stringify(req.session.user, 2, true));
-  res.end();
 });
 
 
@@ -249,26 +204,6 @@ app.get('/user', function(req, res){
 app.get('*', function(req, res){
   res.send('your Jedi mind tricks will not work on me', 404);
 });
-
-
-//var fileEmitter = new events.EventEmitter();
-//var newFileLstnr = fileEmitter.on('found', function(file) {
-//  console.log('file found called');
-//});
-
-
-//app.get('*', function(req, res){
-//  res.send('hello world');
-//  socket.broadcast('heeloo');
-
-/*
-  var files = fs.readdirSync('media');
-  file.forEach(function(file) {
-    fileEmitter.emit('found', dest);
-    socket.broadcast({'foo': dest});
-  });
-*/
-//});
 
 
 app.listen(8124);

@@ -1,0 +1,86 @@
+@charset "utf-8";
+/* CSS Document */
+
+#content {
+	padding: 75px 0px 50px 0px;
+}
+#user {
+	position: absolute;
+	top: -20px;
+	left: -5px;
+	font-weight: bold;
+	color: #cccccc;
+}
+#user .status {
+	color: #666666;
+}
+#header {
+	position: absolute;
+	top: 50px;
+	left: -5px;
+	width: 710px;
+	height: 25px;
+	color: #999999;
+	background: #050505;
+}
+#header div {
+	float: left;
+	color: #999999;
+	font: bold 11px/25px Verdana, sans-serif;
+	text-transform: uppercase;
+}
+#header .date {
+	padding-left: 90px;
+	width: 108px;
+}
+#header .message {
+	width: 317px;
+}
+#header .status {
+	width: 135px;
+	text-align: center;
+}
+#alerts {
+	position: relative;
+	width: 590px;
+	margin: 0px auto;
+}
+#alert {
+	display: table-row;
+}
+#alert div {
+	display: table-cell;
+	padding: 20px 0px;
+	border-bottom: #dddddd 1px solid;
+}
+#alert .date {
+	padding-left: 30px;
+	width: 108px;
+	font-weight: bold;
+}
+#alert .message {
+	width: 317px;
+}
+#alert .message .title {
+	font-weight: bold;
+	display: block;
+	padding: 0px;
+	border: none;	
+}
+#alert .status {
+	width: 135px;
+	text-align: center; 
+}
+#alert .status a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #cccccc;
+	background: #666666;
+	border: #666666 1px outset;
+	padding: 1px 5px;
+}
+#alert .status a:hover {
+	color: #ffffff;
+	background: #333333;
+	border: #333333 1px inset;
+}

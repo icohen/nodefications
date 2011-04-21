@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document */
+
+html {
+	margin: 0px;
+	padding: 0px;
+}
+body {
+	background: #333333 url(../img/bg.gif) center top repeat-x;
+	margin: 0px;
+	padding: 0px;
+}
+div {
+	font: normal 11px Verdana, sans-serif;
+	color: #333333;
+}
+#content {
+	position: relative;
+	width: 700px;
+	margin: 100px auto;
+	border: #999999 5px solid;
+	background: #cccccc url(../img/bg.png) 3px 3px no-repeat;
+}
+#title {
+	position: absolute;
+	top: -32px;
+	right: -8px;
+	font: bold 30px/30px Verdana, sans-serif;
+	color: #999999;
+	text-transform: uppercase;
+	text-align: right;
+}
