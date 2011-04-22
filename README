@@ -1,9 +1,0 @@
-notification app
-
-use
-- mongodb
-- node
-- express
-- ejs
-- socket.io
-- mongoose
