@@ -30,11 +30,11 @@ app.configure(function() {
   app.set('view engine', 'ejs');
   app.set('.html', require('ejs'));
   app.set('view options', {layout: true});
-  app.use(express.bodyDecoder());
+  app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.cookieDecoder());
+  app.use(express.cookieParser());
   app.use(express.session({key: 'user', secret: 'userK3y'}));
-  app.use(express.staticProvider(__dirname + '/public'));
+  app.use(express.static(__dirname + '/public'));
   app.use(app.router);
 });
 
